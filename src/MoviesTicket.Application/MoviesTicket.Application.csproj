@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MoviesTicket.Domain\MoviesTicket.Domain.csproj" />
+    <ProjectReference Include="..\MoviesTicket.Shared\MoviesTicket.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
