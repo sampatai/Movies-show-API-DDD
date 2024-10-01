@@ -1,6 +1,4 @@
-﻿using MoviesTicket.Domain.Aggregates.Enumerations;
-
-namespace MoviesTicket.Domain.Aggregates.Root;
+﻿namespace MoviesTicket.Domain.Aggregates.Root;
 
 public class EventLogs : Entity, IAggregateRoot
 {
