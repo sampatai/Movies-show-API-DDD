@@ -59,7 +59,7 @@ public class ShowsTime : Entity
             && x.Email.Equals(reservation.Email));
     }
 }
-
+''''
 
 
 - **Value Objects**: These are objects that describe some characteristics or attributes but do not have a distinct identity. For instance, `Reservation` is a value object.
