@@ -3,7 +3,7 @@
 This demo project primarily implements domain-driven design (DDD) concepts. It follows the principles of clean architecture to ensure a clear separation of concerns and maintainability. The project structure is organized to promote scalability and testability, making it easier to manage and extend.
 ## About
 
-The Movies Ticketing System is designed to manage movie reservations, showtimes, and genres. It demonstrates key concepts of DDD, including entities, value objects, aggregates, repositories, and services. It follows the SOLID principle, CQRS pattern, implement unit test for domain and application layers.
+The demo project is designed to manage movie reservations, showtimes, and genres. It demonstrates key concepts of DDD, including entities, value objects, aggregates, repositories, and services. It follows the SOLID principle, CQRS pattern, implement unit test for domain and application layers.
 ## Key Features:
 - **Domain-Driven Design (DDD)**: The core business logic is encapsulated within the domain layer, ensuring that the business rules are the primary focus.
 - **Clean Architecture**: The project is structured to separate the application into distinct layers, including the domain, application, infrastructure, and presentation layers. This separation helps in managing dependencies and promotes a clean, maintainable codebase.
