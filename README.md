@@ -59,7 +59,7 @@ public class ShowsTime : Entity
             && x.Email.Equals(reservation.Email));
     }
 }
-''''
+```
 
 
 - **Value Objects**: These are objects that describe some characteristics or attributes but do not have a distinct identity. For instance, `Reservation` is a value object.
@@ -92,7 +92,7 @@ public class Reservation : ValueObject
         yield return Email;
     }
 }
-
+```
 
 - **Aggregates and Aggregate Roots**: Aggregates are clusters of domain objects that can be treated as a single unit. The aggregate root is the main entity that holds references to other entities. In this project, `Movies` is an aggregate root that manages `ShowsTime` and `Reservation`.
  ### Example Usage
@@ -187,4 +187,4 @@ public class Movies : Entity, IAggregateRoot
         single.RemoveReservation(reservation);
     }
 }
-
+```
