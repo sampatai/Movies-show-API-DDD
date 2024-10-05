@@ -2,6 +2,10 @@
 
 public class EventLogs : Entity, IAggregateRoot
 {
+    protected EventLogs()
+    {
+        
+    }
     public EventLogs(string description, EventType eventType)
     {
         EventId = Guid.NewGuid();
