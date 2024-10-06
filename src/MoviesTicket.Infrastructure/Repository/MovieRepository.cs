@@ -1,8 +1,6 @@
-﻿using MoviesTicket.Domain.Aggregates.Root;
+﻿namespace MoviesTicket.Infrastructure.Repository;
 
-namespace MoviesTicket.Infrastructure.Repository;
-
-internal class MovieRepository(MoviesTicketDbContext moviesTicketDbContext,
+public class MovieRepository(MoviesTicketDbContext moviesTicketDbContext,
     ILogger<MovieRepository> logger) : IMovieRepository
 {
     public IUnitOfWork UnitOfWork => moviesTicketDbContext;
@@ -11,7 +9,7 @@ internal class MovieRepository(MoviesTicketDbContext moviesTicketDbContext,
     {
         try
         {
-            var entity = await moviesTicketDbContext.AddAsync(movies);
+            var entity = await moviesTicketDbContext.Movies.AddAsync(movies);
             return entity.Entity;
         }
         catch (Exception ex)
@@ -42,7 +40,7 @@ internal class MovieRepository(MoviesTicketDbContext moviesTicketDbContext,
     {
         try
         {
-            var entity = await Task.FromResult(moviesTicketDbContext.Update(movies));
+            var entity = await Task.FromResult(moviesTicketDbContext.Movies.Update(movies));
             return entity.Entity;
         }
         catch (Exception ex)

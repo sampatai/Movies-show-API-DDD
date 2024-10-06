@@ -1,8 +1,4 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using MoviesTicket.Infrastructure.EntityConfigurations;
-using MoviesTicket.Shared.SeedWork;
-
+﻿using MoviesTicket.Infrastructure.EntityConfigurations;
 
 namespace MoviesTicket.Infrastructure;
 
@@ -17,7 +13,8 @@ public class MoviesTicketDbContext : DbContext, IUnitOfWork
 
         System.Diagnostics.Debug.WriteLine("OrderingContext::ctor ->" + this.GetHashCode());
     }
-    public DbSet<Movies> Movies { get; set; }
+    public DbSet<Movies> Movies { get; set; } = null!;
+    public DbSet<EventLogs> EventLogs { get; set; } = null!;
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new MoviesEntityTypeConfiguration())
