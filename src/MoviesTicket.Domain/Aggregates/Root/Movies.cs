@@ -1,4 +1,6 @@
-﻿namespace MoviesTicket.Domain.Aggregates.Root;
+﻿using MoviesTicket.Domain.Aggregates.Events;
+
+namespace MoviesTicket.Domain.Aggregates.Root;
 
 public class Movies : Entity, IAggregateRoot
 {
@@ -23,7 +25,7 @@ public class Movies : Entity, IAggregateRoot
         this.Synopsis = Guard.Against.NullOrEmpty(synopsis);
         this.MovieGUID = Guid.NewGuid();
         this.IsActive = true;
-
+        AddDomainEvent(new MovieAddedEvent(MovieGUID, Title, Genres));
     }
     public Guid MovieGUID { get; private set; }
     public string Title { get; private set; }
@@ -48,21 +50,32 @@ public class Movies : Entity, IAggregateRoot
       string director,
       string synopsis)
     {
+        string oldTitle = Title;
         this.Title = Guard.Against.NullOrEmpty(title);
         this.ReleaseDate = Guard.Against.Null(releaseDate);
         this.Genres = Guard.Against.Null(movieGenres);
         this.Runtime = Guard.Against.NullOrEmpty(runtime);
-        this.Director = Guard.Against.NullOrEmpty(Director);
+        this.Director = Guard.Against.NullOrEmpty(director);
         this.Synopsis = Guard.Against.NullOrEmpty(synopsis);
+
+        AddDomainEvent(new MovieUpdatedEvent(MovieGUID, oldTitle, Title, Genres));
     }
 
     public void SetInactive()
     {
         this.IsActive = false;
+        AddDomainEvent(new MovieInactiveEvent(MovieGUID, Title));
+
     }
-    public void AddShowsTimes(IEnumerable<ShowsTime> showsTimes)
+    public void AddShowsTimes(List<ShowsTime> showsTimes)
     {
         _showsTimes.AddRange(showsTimes);
+        var domainEvent = showsTimes.GroupBy(x => x.ShowDate)
+              .Select(x => new ShowTimeAddedEvent(MovieGUID, Title, x.Key, string.Join("", x.SelectMany(a => a.Time))));
+        foreach (var t in domainEvent)
+            AddDomainEvent(t);
+
+
     }
     public void SetShowTime(Guid showTimeGuid, DateTime showDate,
         string time)
@@ -70,7 +83,10 @@ public class Movies : Entity, IAggregateRoot
         var single = _showsTimes
             .Where(x => x.ShowsTimeGUID == showTimeGuid)
             .SingleOrDefault()!;
+        string oldShowTime = single.Time;
         single.SetShowsTime(showDate, time);
+        AddDomainEvent(new ShowTimeUpdatedEvent(showTimeGuid, oldShowTime, time, showDate));
+
     }
     public void AddReservation(Guid showTimeGuid, Reservation reservation)
     {
@@ -78,6 +94,8 @@ public class Movies : Entity, IAggregateRoot
             .Where(x => x.ShowsTimeGUID == showTimeGuid)
             .SingleOrDefault()!;
         single.SetReservation(reservation);
+        AddDomainEvent(new ShowBookedEvent(showTimeGuid, Title, single.ShowDate, single.Time, $"{reservation.FirstName} {reservation.LastName}"));
+
     }
 
     public void DeleteReservation(Guid showTimeGuid, Reservation reservation)

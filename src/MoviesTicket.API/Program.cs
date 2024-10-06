@@ -1,5 +1,7 @@
-using MoviesTicket.API.Dependencies;
-using MoviesTicket.Application.Dependencies;
+
+using FluentValidation;
+using MoviesTicket.API.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,6 +12,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddMovies(builder.Configuration);
+builder.Services.AddInfrastructure();
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

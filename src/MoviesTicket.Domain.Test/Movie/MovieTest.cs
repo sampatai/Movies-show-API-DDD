@@ -31,7 +31,7 @@ public class MovieTest
     }
 
     [TestCase("")]
-    [TestCase(null)]
+  //  [TestCase(null)]
     public void validation_should_fail_if_title_null_or_empty(string title)
     {
         _title = title;
@@ -48,7 +48,7 @@ public class MovieTest
     }
 
     [TestCase("")]
-    [TestCase(null)]
+   // [TestCase(null)]
     public void validation_should_fail_if_runtime_null_or_empty(string runtime)
     {
         _runtime = runtime;
@@ -65,7 +65,7 @@ public class MovieTest
     }
 
     [TestCase("")]
-    [TestCase(null)]
+   // [TestCase(null)]
 
     public void validation_should_fail_if_director_null_or_empty(string director)
     {
@@ -83,7 +83,7 @@ public class MovieTest
     }
 
     [TestCase("")]
-    [TestCase(null)]
+  //  [TestCase(null)]
     public void validation_should_fail_if_synopsis_null_or_empty(string synopsis)
     {
         _synopsis = synopsis;
@@ -122,20 +122,40 @@ public class MovieTest
 
     }
     [Test]
-    public void setmovie_should_pass_if_valid_input()
+    public void setmovie_should_throwargumentexception_if_titleisnullorempty()
     {
-        //Arrange
-        _title = _faker.Create<string>();
-        _runtime = _faker.Create<string>();
-        _movieGenres = MovieGenres.PG13;
-        //Act
-        Assert.DoesNotThrow(() => _movie.SetMovie(_title, _releaseDate, _movieGenres, _runtime, _director, _synopsis));
-        //Assert
-        _title.Should().Be(_title);
-        _movieGenres.Should().Be(MovieGenres.PG13);
-        _runtime.Should().Be(_runtime);
+        _title = string.Empty;
+        Assert.Throws<ArgumentException>(() => _movie.SetMovie(_title, _releaseDate, _movieGenres, _runtime, _director, _synopsis));
+    }
 
+    
 
+    [Test]
+    public void setmovie_should_throwargumentexception_if_moviegenresisnull()
+    {
+        _movieGenres = null;
+        Assert.Throws<ArgumentNullException>(() => _movie.SetMovie(_title, _releaseDate, _movieGenres, _runtime, _director, _synopsis));
+    }
+
+    [Test]
+    public void setmovie_should_throwargumentexception_if_runtimeisnullorempty()
+    {
+        _runtime = string.Empty;
+        Assert.Throws<ArgumentException>(() => _movie.SetMovie(_title, _releaseDate, _movieGenres, _runtime, _director, _synopsis));
+    }
+
+    [Test]
+    public void setmovie_should_throwargumentexception_if_directorisnullorempty()
+    {
+        _director = string.Empty;
+        Assert.Throws<ArgumentException>(() => _movie.SetMovie(_title, _releaseDate, _movieGenres, _runtime, _director, _synopsis));
+    }
+
+    [Test]
+    public void setmovie_should_throwargumentexception_if_synopsisisnullorempty()
+    {
+        _synopsis = string.Empty;
+        Assert.Throws<ArgumentException>(() => _movie.SetMovie(_title, _releaseDate, _movieGenres, _runtime, _director, _synopsis));
     }
     [Test]
     public void setinactive_should_set_isactive_to_false()

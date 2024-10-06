@@ -1,32 +1,20 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using MoviesTicket.Infrastructure.EntityConfigurations;
-using MoviesTicket.Shared.SeedWork;
-
+﻿using MoviesTicket.Infrastructure.EntityConfigurations;
 
 namespace MoviesTicket.Infrastructure;
 
 
 public class MoviesTicketDbContext : DbContext, IUnitOfWork
 {
- 
-
-
     private readonly IMediator _mediator;
-
-
     public MoviesTicketDbContext(DbContextOptions<MoviesTicketDbContext> options) : base(options) { }
-
-
 
     public MoviesTicketDbContext(DbContextOptions<MoviesTicketDbContext> options, IMediator mediator) : base(options)
     {
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-
-
         System.Diagnostics.Debug.WriteLine("OrderingContext::ctor ->" + this.GetHashCode());
     }
-
+    public DbSet<Movies> Movies { get; set; } = null!;
+    public DbSet<EventLogs> EventLogs { get; set; } = null!;
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new MoviesEntityTypeConfiguration())
