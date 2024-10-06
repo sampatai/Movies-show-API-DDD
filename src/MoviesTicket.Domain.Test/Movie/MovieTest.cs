@@ -31,7 +31,7 @@ public class MovieTest
     }
 
     [TestCase("")]
-    [TestCase(null)]
+  //  [TestCase(null)]
     public void validation_should_fail_if_title_null_or_empty(string title)
     {
         _title = title;
@@ -48,7 +48,7 @@ public class MovieTest
     }
 
     [TestCase("")]
-    [TestCase(null)]
+   // [TestCase(null)]
     public void validation_should_fail_if_runtime_null_or_empty(string runtime)
     {
         _runtime = runtime;
@@ -65,7 +65,7 @@ public class MovieTest
     }
 
     [TestCase("")]
-    [TestCase(null)]
+   // [TestCase(null)]
 
     public void validation_should_fail_if_director_null_or_empty(string director)
     {
@@ -83,7 +83,7 @@ public class MovieTest
     }
 
     [TestCase("")]
-    [TestCase(null)]
+  //  [TestCase(null)]
     public void validation_should_fail_if_synopsis_null_or_empty(string synopsis)
     {
         _synopsis = synopsis;

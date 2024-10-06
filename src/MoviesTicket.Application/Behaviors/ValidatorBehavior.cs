@@ -1,12 +1,4 @@
-﻿
-
-
-
-
-
-using MoviesTicket.Shared.Exceptions;
-
-namespace MoviesTicket.Application.Behaviors;
+﻿namespace MoviesTicket.Application.Behaviors;
 
 public class ValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
 {

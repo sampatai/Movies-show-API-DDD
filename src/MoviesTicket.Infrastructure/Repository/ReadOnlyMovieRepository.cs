@@ -14,7 +14,7 @@ public class ReadOnlyMovieRepository(MoviesTicketDbContext moviesTicketDbContext
 
             query = query.WhereIf(!string.IsNullOrEmpty(searchModel.Title), m => m.Title.Contains(searchModel.Title, StringComparison.OrdinalIgnoreCase));
             query = query.WhereIf(searchModel.ReleaseDate.HasValue, m => m.ReleaseDate.Date == searchModel.ReleaseDate!.Value.Date);
-            query = query.WhereIf(Enumeration.GetAll<MovieGenres>().Any(x => x.Id == searchModel.Genres.Id), m => m.Genres == searchModel.Genres);
+            query = query.WhereIf(searchModel.Genres is not null && Enumeration.GetAll<MovieGenres>().Any(x => x.Id == searchModel.Genres.Id), m => m.Genres == searchModel.Genres);
             query = query.WhereIf(!string.IsNullOrEmpty(searchModel.ShowTime), m => m.ShowsTimes.Any(st => st.Time.Contains(searchModel.ShowTime, StringComparison.OrdinalIgnoreCase)));
 
             var totalCount = await query.CountAsync(cancellationToken);
