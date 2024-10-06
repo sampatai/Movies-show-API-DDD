@@ -9,24 +9,15 @@ namespace MoviesTicket.Infrastructure;
 
 public class MoviesTicketDbContext : DbContext, IUnitOfWork
 {
- 
-
-
-    private readonly IMediator _mediator;
-
 
     public MoviesTicketDbContext(DbContextOptions<MoviesTicketDbContext> options) : base(options) { }
 
-
-
     public MoviesTicketDbContext(DbContextOptions<MoviesTicketDbContext> options, IMediator mediator) : base(options)
     {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-
 
         System.Diagnostics.Debug.WriteLine("OrderingContext::ctor ->" + this.GetHashCode());
     }
-
+    public DbSet<Movies> Movies { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new MoviesEntityTypeConfiguration())
