@@ -1,17 +1,15 @@
-﻿using FluentValidation;
+﻿
 using MoviesTicket.Application.Projections;
 using MoviesTicket.Application.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using MoviesTicket.Application.CommandQuery.Extension;
+
 
 
 namespace MoviesTicket.Application.CommandQuery.Query;
 
 public static class GetMovies
 {
-    public record Query : FilterModel, IRequest<IEnumerable<Movies>>
+    public record Query : FilterModel, IRequest<ListMovie>
     {
 
     }
@@ -39,14 +37,15 @@ public static class GetMovies
 
 
     protected sealed class Handler(ILogger<Handler> logger,
-            IReadOnlyMovieRepository readOnlyMovieRepository) : IRequestHandler<Query, IEnumerable<Movies>>
+            IReadOnlyMovieRepository readOnlyMovieRepository) : IRequestHandler<Query, ListMovie>
     {
-        public async Task<IEnumerable<Movies>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<ListMovie> Handle(Query request, CancellationToken cancellationToken)
         {
 
             try
             {
-                return (await readOnlyMovieRepository.GetMovies(request, cancellationToken)).Movies;
+                var result=await readOnlyMovieRepository.GetMovies(request, cancellationToken);
+                return new ListMovie(result.Movies.ToMovie(),result.TotalCount);
             }
             catch (Exception ex)
             {
@@ -55,5 +54,6 @@ public static class GetMovies
             }
         }
     }
+    
 }
 

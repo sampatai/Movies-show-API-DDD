@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+namespace MoviesTicket.Application.CommandQuery.Common;
 
-namespace MoviesTicket.Application.CommandQuery.Common
-{
-    internal class MovieCommand
-    {
-    }
-}
+    public record CreateMovieCommand:CreateMovie { }
+   public record UpdateMovieCommand:UpdateMovie{}
+ 
+   public record ListMovieCommand:ListMovie{}

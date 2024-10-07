@@ -31,5 +31,20 @@ public class ReadOnlyMovieRepository(MoviesTicketDbContext moviesTicketDbContext
             throw;
         }
     }
+   public async Task<bool> HasMovies(Guid movieGuid,CancellationToken cancellationToken)
+   {
+        try
+        {
+            return await moviesTicketDbContext
+                        .Movies
+                        .AnyAsync(x => x.MovieGUID.Equals(movieGuid)
+                                && x.IsActive, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "{@movieGuid}", movieGuid);
+            throw;
+        }
+}
 }
 

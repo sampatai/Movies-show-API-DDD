@@ -19,7 +19,7 @@ namespace MoviesTicket.API.Controllers
         // GET: api/<MovieController>
 
         [HttpPost]
-        [ProducesResponseType(typeof(Movies), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ListMovie), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> GetAsync([FromBody] FilterModel filterModel, CancellationToken cancellationToken)
         {
