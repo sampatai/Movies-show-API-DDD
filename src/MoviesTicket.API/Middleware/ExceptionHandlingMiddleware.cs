@@ -1,78 +1,115 @@
-﻿using Ardalis.GuardClauses;
-using FluentValidation;
+﻿using FluentValidation;
+using System.Net;
 using System.Text.Json;
 
 
 namespace MoviesTicket.API.Middleware;
-internal sealed class ExceptionHandlingMiddleware : IMiddleware
+public class ExceptionHandlerMiddleware
 {
-    private readonly ILogger<ExceptionHandlingMiddleware> _logger;
+    private readonly RequestDelegate _next;
+    private readonly ILogger _logger;
 
-    public ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger) => _logger = logger;
+    public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger)
+    {
+        _logger = logger;
+        _next = next;
+    }
 
-    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+    public async Task InvokeAsync(HttpContext httpContext)
     {
         try
         {
-            await next(context);
+            await _next(httpContext);
+        }
+        catch (ValidationException vex)
+        {
+            await HandleValidationExceptionAsync(httpContext, vex);
+        }
+        catch (ArgumentNullException aex)
+        {
+            await HandleArgumentExceptionAsync(httpContext, aex);
+        }
+        catch (ArgumentException anex)
+        {
+            await HandleArgumentExceptionAsync(httpContext, anex);
+        }
+        catch (Exception exception)
+        {
+            await HandleExceptionAsync(httpContext, exception);
+        }
+    }
+
+    private Task HandleValidationExceptionAsync(HttpContext context, ValidationException exception)
+    {
+        try
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+            return context.Response.WriteAsync(JsonSerializer.Serialize(new
+            {
+                Message = exception.Message,
+                Errors = exception.Errors.DistinctBy(p => p.ErrorMessage).Select(p => string.IsNullOrWhiteSpace(p.ErrorMessage) ? $"{p.PropertyName} invalid" : p.ErrorMessage)
+            }));
         }
         catch (Exception e)
         {
-            _logger.LogError(e, e.Message);
-
-            await HandleExceptionAsync(context, e);
-        }
-    }
-
-    private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
-    {
-        var statusCode = GetStatusCode(exception);
-
-        var response = new
-        {
-            title = GetTitle(exception),
-            status = statusCode,
-            detail = exception.Message,
-            errors = GetErrors(exception)
-        };
-
-        httpContext.Response.ContentType = "application/json";
-
-        httpContext.Response.StatusCode = statusCode;
-
-        await httpContext.Response.WriteAsync(JsonSerializer.Serialize(response));
-    }
-
-    private static int GetStatusCode(Exception exception) =>
-        exception switch
-        {
-            BadHttpRequestException => StatusCodes.Status400BadRequest,
-            NotFoundException => StatusCodes.Status404NotFound,
-            ValidationException => StatusCodes.Status422UnprocessableEntity,
-            _ => StatusCodes.Status500InternalServerError
-        };
-
-    private static string GetTitle(Exception exception) =>
-        exception switch
-        {
-            ApplicationException applicationException => applicationException.Message,
-            _ => "Server Error"
-        };
-
-    private static IReadOnlyDictionary<string, string[]> GetErrors(Exception exception)
-    {
-        IReadOnlyDictionary<string, string[]> errors = null;
-
-        if (exception is ValidationException validationException)
-        {
-            return validationException.Errors
-                     .GroupBy(e => e.PropertyName)
-                     .ToDictionary(
-                         g => g.Key,
-                         g => g.Select(e => e.ErrorMessage).ToArray()
-                     );
+            _logger.LogError(e, "Cannot log error {0}", exception);
         }
 
-        return errors;
+        return context.Response.WriteAsync(JsonSerializer.Serialize(GetException(exception)));
+    }
+
+    private Task HandleArgumentExceptionAsync(HttpContext context, ArgumentException exception)
+    {
+        try
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+            return context.Response.WriteAsync(JsonSerializer.Serialize(new
+            {
+                Message = exception.Message,
+                Errors = exception.ParamName
+            }));
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Cannot log error {0}", exception);
+        }
+
+        return context.Response.WriteAsync(JsonSerializer.Serialize(GetException(exception)));
+    }
+
+    private Task HandleExceptionAsync(HttpContext context, Exception exception)
+    {
+        try
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+            return context.Response.WriteAsync(JsonSerializer.Serialize(GetGenericException()));
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Cannot log error {0}", exception);
+        }
+
+        return context.Response.WriteAsync(JsonSerializer.Serialize(GetGenericException()));
+    }
+
+    private Object GetGenericException() => new
+    {
+        Message = "System encountered an unexpected error. Please try again later."
+    };
+
+    private Object GetException(Exception exception)
+    {
+        var InnerException = exception.InnerException == null ? null : GetException(exception.InnerException);
+        var result = new
+        {
+            exception.Message
+        };
+        return result;
     }
 }

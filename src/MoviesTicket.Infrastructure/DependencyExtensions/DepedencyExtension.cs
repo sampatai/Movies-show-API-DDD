@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MoviesTicket.Infrastructure.Repository;
 
-namespace MoviesTicket.Infrastructure.Dependencies;
+namespace MoviesTicket.Infrastructure.DependencyExtensions;
 
 public static class DepedencyExtension
 {

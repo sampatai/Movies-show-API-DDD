@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MoviesTicket.Application.CommandQuery.Command.Movie
+﻿namespace MoviesTicket.Application.CommandQuery.Command.Movie
 {
-    internal class CreateMovie
+    public static class CreateMovieCommand
     {
+        #region Command/Query
+        public sealed record Command : CreateMovie, IRequest { }
+        #endregion
+
+        #region Validation
+        public sealed class Validator : Validator<Command>
+        {
+            public Validator()
+            {
+
+            }
+        }
+        #endregion
     }
 }
