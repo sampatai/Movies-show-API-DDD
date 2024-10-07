@@ -4,7 +4,7 @@ namespace MoviesTicket.Application.Model
     {
         public required string Time { get; set; }
     }
-    public record MovieShowTimeGUIDBase
+    public record MovieShowTimeGUIDBase:MovieShowTimeBase
     {
         public required Guid MovieShowTimeGUID { get; set; }
     }
@@ -14,17 +14,14 @@ namespace MoviesTicket.Application.Model
         public required DateTime ShowDate { get; set; }
 
     }
-    public record MovieShowTimeWithGUID : MovieShowTimeGUIDBase
-    {
-
-    }
+   
     public record CreateMovieShowTime : MovieShowBase
     {
         public IEnumerable<MovieShowTimeBase> MovieShowTimes { get; set; }
     }
     public record UpdateMovieShowTime : MovieShowBase
     {
-        public IEnumerable<MovieShowTimeWithGUID> MovieShowTimes { get; set; }
+        public IEnumerable<MovieShowTimeGUIDBase> MovieShowTimes { get; set; }
     }
     public record ShowBooked
     {

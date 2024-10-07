@@ -1,3 +1,6 @@
+using MoviesTicket.Application.Model;
+using MoviesTicket.Application.Repository;
+
 namespace MoviesTicket.Application.CommandQuery.Command.Movie;
 
 public abstract class Validator<T> : AbstractValidator<T> where T : MovieBase
@@ -26,4 +29,21 @@ public abstract class Validator<T> : AbstractValidator<T> where T : MovieBase
             .NotEmpty().WithMessage("Synopsis is required.")
             .MaximumLength(1000).WithMessage("Synopsis cannot be longer than 1000 characters.");
     }
+    
+}
+public abstract class MovieShowValidator<T> : AbstractValidator<T> where T : MovieShowBase
+{
+    public MovieShowValidator(IReadOnlyMovieRepository readOnlyMovieRepository)
+    {
+        RuleFor(show => show.MovieGUID)
+            .NotEmpty().WithMessage("MovieGUID is required.")
+            .MustAsync(readOnlyMovieRepository.HasMovies)
+	                                     .WithMessage("Invalid movie name");
+
+        RuleFor(show => show.ShowDate)
+            .NotEmpty().WithMessage("ShowDate is required.")
+            .GreaterThanOrEqualTo(DateTime.Now).WithMessage("ShowDate cannot be in the past.");
+            
+    }
+    
 }
