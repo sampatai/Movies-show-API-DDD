@@ -5,3 +5,6 @@ global using MoviesTicket.Shared.Exceptions;
 global using MoviesTicket.Domain.Aggregates.Root;
 global using MoviesTicket.Shared.SeedWork;
 global using MoviesTicket.Domain.Aggregates.Enumerations;
+global using MoviesTicket.Application.Projections;
+global using MoviesTicket.Application.Repository;
+ global using MoviesTicket.Application.CommandQuery.Extension;

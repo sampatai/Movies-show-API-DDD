@@ -1,7 +1,5 @@
 ﻿
-using MoviesTicket.Application.Projections;
-using MoviesTicket.Application.Repository;
-using MoviesTicket.Application.CommandQuery.Extension;
+
 
 
 
@@ -9,11 +7,13 @@ namespace MoviesTicket.Application.CommandQuery.Query;
 
 public static class GetMovies
 {
+    #region Request
     public record Query : FilterModel, IRequest<ListMovie>
     {
 
     }
-
+    #endregion
+    #region Validation
     protected sealed class Validator : AbstractValidator<Query>
     {
         public Validator()
@@ -34,8 +34,8 @@ public static class GetMovies
         }
     }
 
-
-
+    #endregion
+    #region Handler
     protected sealed class Handler(ILogger<Handler> logger,
             IReadOnlyMovieRepository readOnlyMovieRepository) : IRequestHandler<Query, ListMovie>
     {
@@ -44,8 +44,8 @@ public static class GetMovies
 
             try
             {
-                var result=await readOnlyMovieRepository.GetMovies(request, cancellationToken);
-                return new ListMovie(result.Movies.ToMovie(),result.TotalCount);
+                var result = await readOnlyMovieRepository.GetMovies(request, cancellationToken);
+                return new ListMovie(result.Movies.ToMovies(), result.TotalCount);
             }
             catch (Exception ex)
             {
@@ -54,6 +54,7 @@ public static class GetMovies
             }
         }
     }
-    
+    #endregion
+
 }
 

@@ -32,7 +32,7 @@ namespace MoviesTicket.Application.Model
     }
     public record GetMovieShow : MovieShowBase
     {
-        public IEnumerable<MovieShowTimeWithGUID> MovieShowTimes { get; set; }
+        public IEnumerable<MovieShowTimeGUIDBase> MovieShowTimes { get; set; }
 
     }
 }
