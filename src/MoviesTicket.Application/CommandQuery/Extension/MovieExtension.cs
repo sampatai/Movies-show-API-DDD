@@ -41,7 +41,7 @@ namespace MoviesTicket.Application.CommandQuery.Extension
             var movieshows = movie.ShowsTimes.GroupBy(x => x.ShowDate)
             .Select(x => new GetMovieShow()
             {
-                MovieGUID = movie.MovieGUID,
+               
                 ShowDate = x.Key,
                 MovieShowTimes = x.Select(s => new MovieShowTimeGUIDBase()
                 {

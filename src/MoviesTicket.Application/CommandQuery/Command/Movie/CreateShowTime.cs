@@ -1,6 +1,3 @@
-using MoviesTicket.Application.Model;
-using MoviesTicket.Application.Repository;
-
 namespace MoviesTicket.Application.CommandQuery.Command.Movie
 {
     public static class CreateShowTimeCommand
@@ -17,6 +14,10 @@ namespace MoviesTicket.Application.CommandQuery.Command.Movie
         {
             public Validator(IReadOnlyMovieRepository readOnlyMovieRepository) : base(readOnlyMovieRepository)
             {
+                RuleFor(show => show.MovieGUID)
+            .NotEmpty().WithMessage("MovieGUID is required.")
+            .MustAsync(readOnlyMovieRepository.HasMovies)
+                                         .WithMessage("Invalid movie name");
                 RuleFor(show => show.MovieShowTimes)
                          .NotEmpty().WithMessage("MovieShowTimes are required.")
                          .Must(times => times != null && times.All(time =>

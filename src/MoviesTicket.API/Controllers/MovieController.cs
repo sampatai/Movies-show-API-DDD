@@ -106,7 +106,7 @@ namespace MoviesTicket.API.Controllers
         [HttpPost("{movieGuid:guid}/shows")]
         [ProducesResponseType(typeof(CreateMovieShowTime), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult> CreateShows(Guid movieGuid, [FromBody] CreateMovieShowTime showTime, CancellationToken cancellationToken)
+        public async Task<ActionResult> CreateShowsTime(Guid movieGuid, [FromBody] CreateMovieShowTime showTime, CancellationToken cancellationToken)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace MoviesTicket.API.Controllers
         [HttpPut("{movieGuid:guid}/shows")]
         [ProducesResponseType(typeof(UpdateMovieShowTime), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult> UpdateShows(Guid movieGuid, [FromBody] UpdateMovieShowTime update, CancellationToken cancellationToken)
+        public async Task<ActionResult> UpdateShowsTime(Guid movieGuid, [FromBody] UpdateMovieShowTime update, CancellationToken cancellationToken)
         {
             try
             {

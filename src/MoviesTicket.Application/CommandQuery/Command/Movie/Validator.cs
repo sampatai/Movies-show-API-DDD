@@ -35,10 +35,7 @@ public abstract class MovieShowValidator<T> : AbstractValidator<T> where T : Mov
 {
     public MovieShowValidator(IReadOnlyMovieRepository readOnlyMovieRepository)
     {
-        RuleFor(show => show.MovieGUID)
-            .NotEmpty().WithMessage("MovieGUID is required.")
-            .MustAsync(readOnlyMovieRepository.HasMovies)
-	                                     .WithMessage("Invalid movie name");
+        
 
         RuleFor(show => show.ShowDate)
             .NotEmpty().WithMessage("ShowDate is required.")
