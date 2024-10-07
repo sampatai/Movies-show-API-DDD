@@ -14,7 +14,7 @@ builder.Services.AddApplication();
 builder.Services.AddMovies(builder.Configuration);
 builder.Services.AddInfrastructure();
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
-builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+
 
 var app = builder.Build();
 
@@ -28,6 +28,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.MapControllers();
 

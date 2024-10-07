@@ -2,7 +2,7 @@
 using MoviesTicket.Infrastructure;
 
 
-namespace MoviesTicket.API.Dependencies
+namespace MoviesTicket.API.DependencyExtensions
 {
     public static class DependencyExtension
     {

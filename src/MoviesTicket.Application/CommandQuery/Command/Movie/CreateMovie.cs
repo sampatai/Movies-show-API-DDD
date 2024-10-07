@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MoviesTicket.Application.CommandQuery.Command.Movie
+﻿namespace MoviesTicket.Application.CommandQuery.Command.Movie
 {
-    internal class CreateMovie
+    public static class CreateMovie
     {
     }
 }

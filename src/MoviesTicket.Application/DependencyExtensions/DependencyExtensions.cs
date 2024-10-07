@@ -2,9 +2,9 @@
 using MoviesTicket.Application.Behaviors;
 using System.Reflection;
 
-namespace MoviesTicket.Application.Dependencies
+namespace MoviesTicket.Application.DependencyExtensions
 {
-    public static class ApplicationDepencencies
+    public static class DependencyExtensions
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
