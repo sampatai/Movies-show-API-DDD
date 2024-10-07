@@ -8,3 +8,4 @@ global using MoviesTicket.Domain.Aggregates.Enumerations;
 global using MoviesTicket.Application.Projections;
 global using MoviesTicket.Application.Repository;
  global using MoviesTicket.Application.CommandQuery.Extension;
+ global using MoviesTicket.Domain.Aggregates.Events;
