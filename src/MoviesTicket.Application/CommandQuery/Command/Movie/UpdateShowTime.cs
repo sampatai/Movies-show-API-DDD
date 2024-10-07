@@ -1,16 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MoviesTicket.Application.Model;
-using MoviesTicket.Application.Repository;
+
 
 namespace MoviesTicket.Application.CommandQuery.Command.Movie
 {
     public static class UpdateShowTimeCommand
     {
         #region Command/Query
-        public sealed record Command : UpdateMovieShowTime, IRequest { }
+        public sealed record Command : UpdateMovieShowTime, IRequest
+        {
+            public Guid MovieGUID { get; set; }
+
+        }
         #endregion
         #region Validation
         public sealed class Validator : MovieShowValidator<Command>

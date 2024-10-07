@@ -18,7 +18,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesTicket.Domain.Test", "MoviesTicket.Domain.Test\MoviesTicket.Domain.Test.csproj", "{EC8D8A9D-B6E7-4D37-9FD6-979D88D56013}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesTicket.Domain.Test", "MoviesTicket.Domain.Test\MoviesTicket.Domain.Test.csproj", "{EC8D8A9D-B6E7-4D37-9FD6-979D88D56013}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3DD23239-DD8C-4359-A808-D7F8515C0E04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EC8D8A9D-B6E7-4D37-9FD6-979D88D56013} = {3DD23239-DD8C-4359-A808-D7F8515C0E04}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C08F0250-C40E-487F-AEC0-CA7F5BE25A38}

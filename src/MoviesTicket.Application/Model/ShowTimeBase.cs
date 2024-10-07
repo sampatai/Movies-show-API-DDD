@@ -10,7 +10,6 @@ namespace MoviesTicket.Application.Model
     }
     public record MovieShowBase
     {
-        public required Guid MovieGUID { get; set; }
         public required DateTime ShowDate { get; set; }
 
     }

@@ -22,9 +22,9 @@ public record CreateMovie : MovieBase
 {
 
 }
-public record UpdateMovie : MovieBase, IMovieGUIDBase
+public record UpdateMovie : MovieBase
 {
-    public Guid MovieGUID { get; set; }
+ 
 }
 public record MovieResponse : MovieBase, IMovieGUIDBase
 {

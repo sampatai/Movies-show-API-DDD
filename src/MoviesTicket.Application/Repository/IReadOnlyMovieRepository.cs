@@ -1,4 +1,4 @@
-﻿using MoviesTicket.Application.Projections;
+﻿
 
 namespace MoviesTicket.Application.Repository;
 

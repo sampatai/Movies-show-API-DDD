@@ -1,4 +1,3 @@
-
 namespace MoviesTicket.Application.CommandQuery.Query
 {
     public static class GetMovieByGUID
