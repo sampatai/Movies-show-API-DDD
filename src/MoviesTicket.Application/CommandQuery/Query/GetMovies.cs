@@ -29,7 +29,7 @@ public static class GetMovies
 
     #endregion
     #region Handler
-    protected sealed class Handler(ILogger<Handler> logger,
+    public sealed class Handler(ILogger<Handler> logger,
             IReadOnlyMovieRepository readOnlyMovieRepository) : IRequestHandler<Query, ListMovie>
     {
         public async Task<ListMovie> Handle(Query request, CancellationToken cancellationToken)

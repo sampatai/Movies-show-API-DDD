@@ -112,7 +112,7 @@ public abstract class HandlerTestBase<THandlder, TRequest, TResponse> : CommonTe
     where TRequest : IRequest<TResponse>
 {
     protected THandlder Handler;
-    protected TRequest MockCommandQuery;
+    protected TRequest Query;
     protected TResponse Response;
 
     [SetUp]
@@ -144,6 +144,6 @@ public abstract class HandlerTestBase<THandlder, TRequest, TResponse> : CommonTe
     public new virtual void ServicesSetup()
     {
     }
-    protected virtual TRequest CreateCommandQuery()
+    protected virtual TRequest CreateQuery()
         => default(TRequest);
 }
