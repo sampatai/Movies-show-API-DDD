@@ -9,7 +9,7 @@ public static class GetMovies
     }
     #endregion
     #region Validation
-    protected sealed class Validator : AbstractValidator<Query>
+    public sealed class Validator : AbstractValidator<Query>
     {
         public Validator()
         {

@@ -37,7 +37,7 @@ namespace MoviesTicket.Application.Test.Query
             Query.PageNumber = 0;
 
             // Act
-            AsyncTestDelegate sut = () => Mediator.Send(Query);
+            AsyncTestDelegate sut = async () =>await Mediator.Send(Query);
             // Assert
             var assertion = Assert.ThrowsAsync<ValidationException>(sut);
 
