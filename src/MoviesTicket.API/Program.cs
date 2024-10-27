@@ -1,6 +1,8 @@
 
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MoviesTicket.API.Middleware;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,13 +11,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGenWithAuth(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddMovies(builder.Configuration);
 builder.Services.AddInfrastructure();
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
-
+builder.Services.AddAuthorization();
+builder.Services.AddAuthenticationWithBearer(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

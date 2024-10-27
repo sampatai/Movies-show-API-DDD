@@ -22,7 +22,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesTicket.Domain.Test", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3DD23239-DD8C-4359-A808-D7F8515C0E04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesTicket.Application.Test", "MoviesTicket.Application.Test\MoviesTicket.Application.Test.csproj", "{68DD7AD0-FCF5-4738-9FF1-D2328AA7BBA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesTicket.Application.Test", "MoviesTicket.Application.Test\MoviesTicket.Application.Test.csproj", "{68DD7AD0-FCF5-4738-9FF1-D2328AA7BBA4}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A3F6EDF4-9222-4E3A-B479-6D4C4B1C5A90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,10 @@ Global
 		{68DD7AD0-FCF5-4738-9FF1-D2328AA7BBA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68DD7AD0-FCF5-4738-9FF1-D2328AA7BBA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68DD7AD0-FCF5-4738-9FF1-D2328AA7BBA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3F6EDF4-9222-4E3A-B479-6D4C4B1C5A90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3F6EDF4-9222-4E3A-B479-6D4C4B1C5A90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3F6EDF4-9222-4E3A-B479-6D4C4B1C5A90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3F6EDF4-9222-4E3A-B479-6D4C4B1C5A90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

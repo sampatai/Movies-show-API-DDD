@@ -1,0 +1,23 @@
+services:
+  moviesticket.api:
+    image: ${DOCKER_REGISTRY-}moviesticketapi
+    build:
+      context: .
+      dockerfile: MoviesTicket.API/Dockerfile
+    ports:
+     - 5000:8080
+     - 5001:8081
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    command: start-dev
+    environment:
+      KC_HEALTH_ENABLED: true
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      
+    ports:
+      - 18080:8080
+    volumes:
+      - ./.containers/identity:/opt/keycloak/data 

@@ -16,7 +16,9 @@ public abstract class CommonTestBase
     protected Fixture Fixture = new Fixture();
     protected IMediator Mediator;
     protected IServiceCollection Services;
+#pragma warning disable NUnit1032 // An IDisposable field/property should be Disposed in a TearDown method
     protected ServiceProvider Provider;
+#pragma warning restore NUnit1032 // An IDisposable field/property should be Disposed in a TearDown method
 
     [SetUp]
     public virtual void Setup()
